@@ -41,6 +41,7 @@
 		"@avaturn-live/web-sdk": "^0.4.0",
 		"@chenglou/pretext": "^0.0.5",
 		"dat.gui": "^0.7.9",
+		"ethers": "^6.16.0",
 		"gltf-validator": "^2.0.0-dev.3.10",
 		"query-string": "^8.1.0",
 		"simple-dropzone": "^0.8.3",

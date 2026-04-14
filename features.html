@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Features — 3D Agent</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="author" content="nirholas" />
+	<meta name="description" content="3D Agent features: ERC-8004 trustless identity, on-chain agent discovery, 3D model validation, and AI-powered rendering." />
+	<meta name="theme-color" content="#000000" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Features — 3D Agent" />
+	<meta property="og:description" content="ERC-8004 trustless identity, on-chain agent discovery, 3D model validation, and AI-powered rendering." />
+	<meta property="og:url" content="https://3d.irish/features" />
+
+	<link rel="canonical" href="https://3d.irish/features" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet" href="/style.css" />
+	<link rel="stylesheet" href="/features.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+</head>
+<body class="features-page">
+	<header>
+		<h1><a href="/">3D Agent</a></h1>
+		<nav class="features-nav">
+			<a href="/">Viewer</a>
+			<a href="/features" class="active">Features</a>
+		</nav>
+	</header>
+
+	<main class="features-main">
+		<!-- Hero -->
+		<section class="hero" id="hero">
+			<div class="hero-content">
+				<p class="hero-eyebrow scroll-reveal">ERC-8004 · Trustless Agents</p>
+				<h2 class="hero-title scroll-reveal">On-Chain Identity<br/>for AI Agents</h2>
+				<p class="hero-subtitle scroll-reveal">3D Agent uses Ethereum's trustless agent standard to give every avatar a verifiable, portable identity — discoverable by any agent, anywhere.</p>
+				<div class="hero-cta scroll-reveal">
+					<a href="/" class="btn-primary">Launch Viewer</a>
+					<a href="https://eips.ethereum.org/EIPS/eip-8004" target="_blank" rel="noopener" class="btn-ghost">Read ERC-8004 →</a>
+				</div>
+			</div>
+			<div class="hero-glow"></div>
+		</section>
+
+		<!-- How it works -->
+		<section class="section" id="how-it-works">
+			<h3 class="section-label scroll-reveal">How It Works</h3>
+			<div class="steps">
+				<div class="step scroll-reveal">
+					<div class="step-num">01</div>
+					<h4>Register</h4>
+					<p>Mint an ERC-721 token on any EVM chain. The <code>tokenURI</code> points to your agent's JSON registration file — name, description, endpoints, and trust preferences.</p>
+				</div>
+				<div class="step scroll-reveal">
+					<div class="step-num">02</div>
+					<h4>Discover</h4>
+					<p>Other agents and clients query the Identity Registry to find your agent. Service endpoints expose A2A, MCP, web interfaces, ENS names, and wallet addresses.</p>
+				</div>
+				<div class="step scroll-reveal">
+					<div class="step-num">03</div>
+					<h4>Trust</h4>
+					<p>Reputation feedback, validation registries, and cryptographic proofs build trust proportional to value at risk — from ordering pizza to medical diagnosis.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Registration JSON -->
+		<section class="section section-dark" id="registration">
+			<h3 class="section-label scroll-reveal">Agent Registration File</h3>
+			<p class="section-desc scroll-reveal">Every 3D avatar is a JSON file — the same format ERC-8004 uses for agent identity. Your avatar's metadata becomes its on-chain passport.</p>
+			<div class="code-block scroll-reveal">
+				<div class="code-header">
+					<span class="code-dot red"></span>
+					<span class="code-dot yellow"></span>
+					<span class="code-dot green"></span>
+					<span class="code-filename">agent-registration.json</span>
+				</div>
+<pre class="code-body"><code>{
+  <span class="json-key">"type"</span>: <span class="json-str">"https://eips.ethereum.org/EIPS/eip-8004#registration-v1"</span>,
+  <span class="json-key">"name"</span>: <span class="json-str">"3D Agent"</span>,
+  <span class="json-key">"description"</span>: <span class="json-str">"AI-powered 3D model viewer and validation agent"</span>,
+  <span class="json-key">"image"</span>: <span class="json-str">"https://3d.irish/og-image.png"</span>,
+  <span class="json-key">"active"</span>: <span class="json-bool">true</span>,
+  <span class="json-key">"services"</span>: [
+    { <span class="json-key">"name"</span>: <span class="json-str">"web"</span>,  <span class="json-key">"endpoint"</span>: <span class="json-str">"https://3d.irish/"</span> },
+    { <span class="json-key">"name"</span>: <span class="json-str">"A2A"</span>,  <span class="json-key">"endpoint"</span>: <span class="json-str">"https://3d.irish/.well-known/agent-card.json"</span> },
+    { <span class="json-key">"name"</span>: <span class="json-str">"MCP"</span>,  <span class="json-key">"endpoint"</span>: <span class="json-str">"https://3d.irish/.well-known/openapi.yaml"</span> }
+  ],
+  <span class="json-key">"supportedTrust"</span>: [<span class="json-str">"reputation"</span>]
+}</code></pre>
+			</div>
+		</section>
+
+		<!-- Three Registries -->
+		<section class="section" id="registries">
+			<h3 class="section-label scroll-reveal">Three Registries</h3>
+			<div class="registry-grid">
+				<div class="registry-card scroll-reveal">
+					<div class="registry-icon">🪪</div>
+					<h4>Identity Registry</h4>
+					<p>ERC-721 based. Every agent gets a unique <code>agentId</code> and a URI that resolves to its registration file. Transferable, composable, browsable with any NFT app.</p>
+					<ul class="registry-details">
+						<li><code>register(agentURI)</code></li>
+						<li><code>setAgentURI()</code></li>
+						<li><code>setMetadata()</code></li>
+					</ul>
+				</div>
+				<div class="registry-card scroll-reveal">
+					<div class="registry-icon">⭐</div>
+					<h4>Reputation Registry</h4>
+					<p>Any client can leave signed feedback — quality scores, uptime, response time. On-chain composability meets off-chain aggregation.</p>
+					<ul class="registry-details">
+						<li><code>giveFeedback(agentId, value)</code></li>
+						<li><code>getSummary(agentId)</code></li>
+						<li><code>revokeFeedback()</code></li>
+					</ul>
+				</div>
+				<div class="registry-card scroll-reveal">
+					<div class="registry-icon">🔐</div>
+					<h4>Validation Registry</h4>
+					<p>Request independent verification: stake-secured re-execution, zkML proofs, TEE attestations. Trust proportional to value at risk.</p>
+					<ul class="registry-details">
+						<li><code>validationRequest()</code></li>
+						<li><code>validationResponse()</code></li>
+						<li><code>getValidationStatus()</code></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- 3D + ERC-8004 -->
+		<section class="section section-dark" id="integration">
+			<h3 class="section-label scroll-reveal">3D Avatars Meet Web3 Identity</h3>
+			<div class="integration-grid">
+				<div class="integration-item scroll-reveal">
+					<h4>GLB → On-Chain</h4>
+					<p>Your 3D avatar's GLB file becomes the <code>"image"</code> field in the registration JSON. Render it in any viewer, verify it on-chain.</p>
+				</div>
+				<div class="integration-item scroll-reveal">
+					<h4>Validation Built-In</h4>
+					<p>glTF validation results feed the Reputation Registry — model quality scores become on-chain reputation signals.</p>
+				</div>
+				<div class="integration-item scroll-reveal">
+					<h4>Agent Discovery</h4>
+					<p>Any A2A or MCP client can discover your 3D Agent via the Identity Registry and interact through standard endpoints.</p>
+				</div>
+				<div class="integration-item scroll-reveal">
+					<h4>Portable & Composable</h4>
+					<p>Your agent identity is an NFT — transfer it, delegate it, list it. Works across any EVM chain.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="section cta-section" id="cta">
+			<div class="cta-content scroll-reveal">
+				<h3>Ready to give your AI agent an identity?</h3>
+				<p>Drop a 3D model into the viewer, or explore the ERC-8004 spec.</p>
+				<div class="hero-cta">
+					<a href="/" class="btn-primary">Launch Viewer</a>
+					<a href="https://ethereum-magicians.org/t/erc-8004-trustless-agents/25098" target="_blank" rel="noopener" class="btn-ghost">Join the Discussion →</a>
+				</div>
+			</div>
+		</section>
+
+		<footer class="features-footer">
+			<p>3D Agent · <a href="https://github.com/nirholas/3D" target="_blank" rel="noopener">GitHub</a> · Built on <a href="https://eips.ethereum.org/EIPS/eip-8004" target="_blank" rel="noopener">ERC-8004</a></p>
+		</footer>
+	</main>
+
+	<script>
+		// Scroll-triggered reveal animations using IntersectionObserver
+		(function () {
+			const reveals = document.querySelectorAll('.scroll-reveal');
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('revealed');
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{
+					threshold: 0.15,
+					rootMargin: '0px 0px -60px 0px',
+				}
+			);
+
+			reveals.forEach((el, i) => {
+				// Stagger siblings inside the same parent
+				const siblings = Array.from(el.parentElement.querySelectorAll('.scroll-reveal'));
+				const idx = siblings.indexOf(el);
+				el.style.transitionDelay = (idx * 0.1) + 's';
+				observer.observe(el);
+			});
+		})();
+	</script>
+</body>
+</html>
