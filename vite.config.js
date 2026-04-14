@@ -5,7 +5,7 @@ export default defineConfig({
 	plugins: [
 		VitePWA({
 			registerType: 'autoUpdate',
-			includeAssets: ['favicon.ico', 'pwa-192x192.png', 'pwa-512x512.png'],
+			includeAssets: ['favicon.ico', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-icon.svg'],
 			manifest: {
 				name: '3D Agent — AI-Powered 3D Model Viewer',
 				short_name: '3D Agent',
