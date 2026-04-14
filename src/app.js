@@ -4,6 +4,7 @@ import { Viewer } from './viewer.js';
 import { SimpleDropzone } from 'simple-dropzone';
 import { Validator } from './validator.js';
 import { Footer } from './components/footer';
+import { AvaturnAgent } from './avaturn-agent.js';
 import queryString from 'query-string';
 
 window.THREE = THREE;
@@ -156,6 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	const app = new App(document.body, location);
 
 	window.VIEWER.app = app;
+
+	// Initialize Avaturn Agent
+	const agent = new AvaturnAgent(document.body);
+	window.VIEWER.agent = agent;
 
 	console.info('[3D Agent] Debugging data exported as `window.VIEWER`.');
 });

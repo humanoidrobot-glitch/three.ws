@@ -2,6 +2,10 @@
     "public": true,
     "routes": [
         {
+            "src": "/api/(.*)",
+            "dest": "/api/$1"
+        },
+        {
             "src": "/assets/(.*)",
             "headers": { "cache-control": "max-age=604800, public" },
             "dest": "/assets/$1"

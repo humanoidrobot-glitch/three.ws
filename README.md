@@ -21,19 +21,7 @@ description: 3D Agent** is an open-source, browser-native 3D model viewer built 
 <br/>
 
 <p align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="650" height="56" viewBox="0 0 650 56">
-    <defs>
-      <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:#00d2ff"/>
-        <stop offset="100%" style="stop-color:#7b2ff7"/>
-      </linearGradient>
-    </defs>
-    <rect width="650" height="56" rx="12" fill="#111119"/>
-    <text x="325" y="35" text-anchor="middle" font-family="SF Pro Display, Inter, sans-serif" font-size="13" fill="#ccc" letter-spacing="1">
-      DRAG &amp; DROP · REAL-TIME LIGHTING · ANIMATION PLAYBACK · GLTF VALIDATION · ZERO UPLOADS
-    </text>
-    <rect x="0" y="0" width="650" height="3" rx="1.5" fill="url(#hg1)" opacity="0.6"/>
-  </svg>
+  <img src="assets/header-banner.svg" width="650" height="56" alt="DRAG &amp; DROP · REAL-TIME LIGHTING · ANIMATION PLAYBACK · GLTF VALIDATION · ZERO UPLOADS"/>
 </p>
 
 <br/>
@@ -87,29 +75,7 @@ It's built for **3D artists** previewing exports, **game developers** debugging 
 <br/>
 
 <p align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="520" height="200" viewBox="0 0 520 200">
-    <defs>
-      <linearGradient id="step" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:#00d2ff"/>
-        <stop offset="100%" style="stop-color:#7b2ff7"/>
-      </linearGradient>
-    </defs>
-    <rect width="520" height="200" rx="14" fill="#0d0d14"/>
-    <!-- Step 1 -->
-    <circle cx="60" cy="50" r="20" fill="none" stroke="#00d2ff" stroke-width="2"/>
-    <text x="60" y="56" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#00d2ff">1</text>
-    <text x="100" y="46" font-family="SF Mono, Fira Code, monospace" font-size="13" fill="#e0e0e0">git clone https://github.com/nirholas/3d-agent.git</text>
-    <text x="100" y="64" font-family="SF Mono, Fira Code, monospace" font-size="13" fill="#666">cd 3D</text>
-    <!-- Step 2 -->
-    <circle cx="60" cy="110" r="20" fill="none" stroke="#7b2ff7" stroke-width="2"/>
-    <text x="60" y="116" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#7b2ff7">2</text>
-    <text x="100" y="116" font-family="SF Mono, Fira Code, monospace" font-size="13" fill="#e0e0e0">npm install</text>
-    <!-- Step 3 -->
-    <circle cx="60" cy="165" r="20" fill="none" stroke="#ff0080" stroke-width="2"/>
-    <text x="60" y="171" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#ff0080">3</text>
-    <text x="100" y="162" font-family="SF Mono, Fira Code, monospace" font-size="13" fill="#e0e0e0">npm run dev</text>
-    <text x="100" y="180" font-family="SF Mono, Fira Code, monospace" font-size="13" fill="#666">→ http://localhost:3000</text>
-  </svg>
+  <img src="assets/quickstart.svg" width="520" height="200" alt="Quickstart steps"/>
 </p>
 
 ```bash
@@ -143,65 +109,7 @@ Open **http://localhost:3000** and drop any `.glb` or `.gltf` file onto the page
 <br/>
 
 <p align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="650" height="340" viewBox="0 0 650 340">
-    <defs>
-      <linearGradient id="ab" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#0d0d14"/>
-        <stop offset="100%" style="stop-color:#12121f"/>
-      </linearGradient>
-    </defs>
-    <rect width="650" height="340" rx="14" fill="url(#ab)"/>
-
-    <!-- App -->
-    <rect x="240" y="20" width="170" height="50" rx="8" fill="#111" stroke="#00d2ff" stroke-width="1.5"/>
-    <text x="325" y="50" text-anchor="middle" font-family="SF Mono, monospace" font-size="14" font-weight="600" fill="#00d2ff">app.js</text>
-    <text x="325" y="62" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#666">Entry point &amp; dropzone</text>
-
-    <!-- Lines from App -->
-    <line x1="280" y1="70" x2="140" y2="120" stroke="#333" stroke-width="1"/>
-    <line x1="325" y1="70" x2="325" y2="120" stroke="#333" stroke-width="1"/>
-    <line x1="370" y1="70" x2="510" y2="120" stroke="#333" stroke-width="1"/>
-
-    <!-- Viewer -->
-    <rect x="55" y="120" width="170" height="50" rx="8" fill="#111" stroke="#7b2ff7" stroke-width="1.5"/>
-    <text x="140" y="150" text-anchor="middle" font-family="SF Mono, monospace" font-size="14" font-weight="600" fill="#7b2ff7">viewer.js</text>
-    <text x="140" y="162" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#666">Three.js scene &amp; GUI</text>
-
-    <!-- Validator -->
-    <rect x="240" y="120" width="170" height="50" rx="8" fill="#111" stroke="#ff0080" stroke-width="1.5"/>
-    <text x="325" y="150" text-anchor="middle" font-family="SF Mono, monospace" font-size="14" font-weight="600" fill="#ff0080">validator.js</text>
-    <text x="325" y="162" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#666">glTF spec validation</text>
-
-    <!-- Environments -->
-    <rect x="425" y="120" width="170" height="50" rx="8" fill="#111" stroke="#ff6b35" stroke-width="1.5"/>
-    <text x="510" y="150" text-anchor="middle" font-family="SF Mono, monospace" font-size="14" font-weight="600" fill="#ff6b35">environments.js</text>
-    <text x="510" y="162" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" fill="#666">HDR env map registry</text>
-
-    <!-- Lines to Components -->
-    <line x1="325" y1="170" x2="325" y2="220" stroke="#333" stroke-width="1"/>
-
-    <!-- Components header -->
-    <rect x="140" y="220" width="370" height="36" rx="8" fill="#111" stroke="#00ff88" stroke-width="1.5"/>
-    <text x="325" y="244" text-anchor="middle" font-family="SF Mono, monospace" font-size="13" font-weight="600" fill="#00ff88">components/</text>
-
-    <!-- Component boxes -->
-    <rect x="55" y="276" width="130" height="40" rx="6" fill="#0a0a12" stroke="#444" stroke-width="1"/>
-    <text x="120" y="300" text-anchor="middle" font-family="SF Mono, monospace" font-size="10" fill="#aaa">footer.jsx</text>
-
-    <rect x="200" y="276" width="130" height="40" rx="6" fill="#0a0a12" stroke="#444" stroke-width="1"/>
-    <text x="265" y="300" text-anchor="middle" font-family="SF Mono, monospace" font-size="10" fill="#aaa">validator-report</text>
-
-    <rect x="345" y="276" width="130" height="40" rx="6" fill="#0a0a12" stroke="#444" stroke-width="1"/>
-    <text x="410" y="300" text-anchor="middle" font-family="SF Mono, monospace" font-size="10" fill="#aaa">validator-table</text>
-
-    <rect x="490" y="276" width="130" height="40" rx="6" fill="#0a0a12" stroke="#444" stroke-width="1"/>
-    <text x="555" y="300" text-anchor="middle" font-family="SF Mono, monospace" font-size="10" fill="#aaa">validator-toggle</text>
-
-    <line x1="200" y1="256" x2="120" y2="276" stroke="#333" stroke-width="1"/>
-    <line x1="280" y1="256" x2="265" y2="276" stroke="#333" stroke-width="1"/>
-    <line x1="370" y1="256" x2="410" y2="276" stroke="#333" stroke-width="1"/>
-    <line x1="450" y1="256" x2="555" y2="276" stroke="#333" stroke-width="1"/>
-  </svg>
+  <img src="assets/architecture.svg" width="650" height="340" alt="Architecture diagram"/>
 </p>
 
 ```
@@ -278,16 +186,7 @@ https://3d.irish/#model=https://example.com/model.glb&kiosk=true
 ### 1. Preview a Local Model
 
 <p align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="500" height="80" viewBox="0 0 500 80">
-    <rect width="500" height="80" rx="10" fill="#0d0d14"/>
-    <text x="30" y="36" font-family="Inter, sans-serif" font-size="22" fill="#00d2ff">①</text>
-    <text x="60" y="36" font-family="Inter, sans-serif" font-size="13" fill="#ccc">Open 3d.irish</text>
-    <text x="200" y="36" font-family="Inter, sans-serif" font-size="22" fill="#7b2ff7">②</text>
-    <text x="230" y="36" font-family="Inter, sans-serif" font-size="13" fill="#ccc">Drop .glb file</text>
-    <text x="370" y="36" font-family="Inter, sans-serif" font-size="22" fill="#ff0080">③</text>
-    <text x="400" y="36" font-family="Inter, sans-serif" font-size="13" fill="#ccc">Inspect</text>
-    <text x="30" y="62" font-family="Inter, sans-serif" font-size="10" fill="#666">Works with multi-file drops — textures and .bin files are auto-resolved.</text>
-  </svg>
+  <img src="assets/tutorial-steps.svg" width="500" height="80" alt="Step 1: Open 3d.irish · Step 2: Drop .glb file · Step 3: Inspect"/>
 </p>
 
 Just drag any `.glb` or `.gltf` file (along with its textures and `.bin` if separate) onto the page. The viewer auto-detects the root glTF file and resolves all relative resource URIs.
@@ -367,42 +266,7 @@ Use an `<iframe>` with kiosk mode for clean embedding:
 <br/>
 
 <p align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="650" height="260" viewBox="0 0 650 260">
-    <rect width="650" height="260" rx="14" fill="#0d0d14"/>
-    <text x="325" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#666" letter-spacing="3">WHAT'S NEXT</text>
-
-    <rect x="20" y="50" width="295" height="38" rx="6" fill="#111" stroke="#00d2ff" stroke-opacity="0.3"/>
-    <text x="35" y="74" font-family="Inter, sans-serif" font-size="12" fill="#00d2ff">◆</text>
-    <text x="55" y="74" font-family="Inter, sans-serif" font-size="11" fill="#ccc">AI-powered model analysis &amp; suggestions</text>
-
-    <rect x="335" y="50" width="295" height="38" rx="6" fill="#111" stroke="#7b2ff7" stroke-opacity="0.3"/>
-    <text x="350" y="74" font-family="Inter, sans-serif" font-size="12" fill="#7b2ff7">◆</text>
-    <text x="370" y="74" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Screenshot &amp; video export</text>
-
-    <rect x="20" y="100" width="295" height="38" rx="6" fill="#111" stroke="#ff0080" stroke-opacity="0.3"/>
-    <text x="35" y="124" font-family="Inter, sans-serif" font-size="12" fill="#ff0080">◆</text>
-    <text x="55" y="124" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Measurement tools (distances, angles)</text>
-
-    <rect x="335" y="100" width="295" height="38" rx="6" fill="#111" stroke="#ff6b35" stroke-opacity="0.3"/>
-    <text x="350" y="124" font-family="Inter, sans-serif" font-size="12" fill="#ff6b35">◆</text>
-    <text x="370" y="124" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Texture channel inspector (normal, AO, etc.)</text>
-
-    <rect x="20" y="150" width="295" height="38" rx="6" fill="#111" stroke="#00ff88" stroke-opacity="0.3"/>
-    <text x="35" y="174" font-family="Inter, sans-serif" font-size="12" fill="#00ff88">◆</text>
-    <text x="55" y="174" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Side-by-side model comparison</text>
-
-    <rect x="335" y="150" width="295" height="38" rx="6" fill="#111" stroke="#ffe66d" stroke-opacity="0.3"/>
-    <text x="350" y="174" font-family="Inter, sans-serif" font-size="12" fill="#ffe66d">◆</text>
-    <text x="370" y="174" font-family="Inter, sans-serif" font-size="11" fill="#ccc">AR mode (WebXR quick-look)</text>
-
-    <rect x="20" y="200" width="295" height="38" rx="6" fill="#111" stroke="#00d2ff" stroke-opacity="0.3"/>
-    <text x="35" y="224" font-family="Inter, sans-serif" font-size="12" fill="#00d2ff">◆</text>
-    <text x="55" y="224" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Scene graph tree explorer</text>
-
-    <rect x="335" y="200" width="295" height="38" rx="6" fill="#111" stroke="#7b2ff7" stroke-opacity="0.3"/>
-    <text x="350" y="224" font-family="Inter, sans-serif" font-size="12" fill="#7b2ff7">◆</text>
-    <text x="370" y="224" font-family="Inter, sans-serif" font-size="11" fill="#ccc">Material editor with live PBR preview</text>
-  </svg>
+  <img src="assets/roadmap.svg" width="650" height="260" alt="Roadmap"/>
 </p>
 
 - **AI Model Analysis** — describe meshes, materials, and suggest optimizations
@@ -538,18 +402,7 @@ For deeper technical detail, see the `docs/` directory:
 <br/>
 
 <p align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="400" height="60" viewBox="0 0 400 60">
-    <defs>
-      <linearGradient id="ft" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:#00d2ff"/>
-        <stop offset="50%" style="stop-color:#7b2ff7"/>
-        <stop offset="100%" style="stop-color:#ff0080"/>
-      </linearGradient>
-    </defs>
-    <rect width="400" height="60" rx="10" fill="#0d0d14"/>
-    <text x="200" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#888">Built by</text>
-    <text x="200" y="48" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="url(#ft)">nirholas</text>
-  </svg>
+  <img src="assets/footer-banner.svg" width="400" height="60" alt="Built by nirholas"/>
 </p>
 
 <p align="center">

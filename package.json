@@ -38,6 +38,7 @@
 		"postversion": "git push && git push --tags"
 	},
 	"dependencies": {
+		"@avaturn-live/web-sdk": "^0.4.0",
 		"@chenglou/pretext": "^0.0.5",
 		"dat.gui": "^0.7.9",
 		"gltf-validator": "^2.0.0-dev.3.10",
