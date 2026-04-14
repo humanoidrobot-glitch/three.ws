@@ -3,11 +3,23 @@ import { resolve } from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+	esbuild: {
+		jsx: 'transform',
+		jsxFactory: 'vhtml',
+		jsxFragment: '"div"',
+	},
 	build: {
 		rollupOptions: {
 			input: {
 				main: resolve(__dirname, 'index.html'),
 				features: resolve(__dirname, 'features.html'),
+			},
+		},
+		rolldownOptions: {
+			jsx: {
+				mode: 'classic',
+				factory: 'vhtml',
+				fragment: '"div"',
 			},
 		},
 	},

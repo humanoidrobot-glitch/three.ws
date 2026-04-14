@@ -5,6 +5,9 @@
 	"description": "AI-powered 3D model viewer — drag-and-drop glTF/GLB preview tool.",
 	"author": "nirholas",
 	"license": "MIT",
+	"overrides": {
+		"serialize-javascript": ">=7.0.5"
+	},
 	"keywords": [
 		"3d-viewer",
 		"gltf-viewer",
@@ -39,6 +42,7 @@
 	},
 	"dependencies": {
 		"@avaturn-live/web-sdk": "^0.4.0",
+		"@avaturn/sdk": "^0.7.0",
 		"@chenglou/pretext": "^0.0.5",
 		"dat.gui": "^0.7.9",
 		"ethers": "^6.16.0",
