@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: 3D Agent API
+  description: AI-powered 3D model viewer for glTF and GLB files.
+  version: 1.5.1
+  contact:
+    email: hello@3d.irish
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://3d.irish
+paths:
+  /:
+    get:
+      operationId: viewHomepage
+      summary: Load the 3D model viewer interface
+      description: Returns the main viewer page where users can drag-and-drop glTF/GLB 3D models for instant preview.
+      responses:
+        "200":
+          description: The 3D viewer HTML page.

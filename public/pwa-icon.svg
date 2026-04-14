@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="96" fill="#080814"/>
+  <!-- Back face — dim cyan -->
+  <polygon points="171,171 341,171 341,341 171,341" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.35"/>
+  <!-- Front face — bright cyan -->
+  <polygon points="201,201 311,201 311,311 201,311" fill="none" stroke="#00d4ff" stroke-width="5" opacity="0.95"/>
+  <!-- Connecting edges — orange -->
+  <line x1="171" y1="171" x2="201" y2="201" stroke="#ff6600" stroke-width="3" opacity="0.7"/>
+  <line x1="341" y1="171" x2="311" y2="201" stroke="#ff6600" stroke-width="3" opacity="0.7"/>
+  <line x1="341" y1="341" x2="311" y2="311" stroke="#ff6600" stroke-width="3" opacity="0.7"/>
+  <line x1="171" y1="341" x2="201" y2="311" stroke="#ff6600" stroke-width="3" opacity="0.7"/>
+</svg>
