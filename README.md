@@ -1,28 +1,10 @@
-PLACEHOLDER_REPLACE_FULL_README
-    <defs>
-      <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#0d0d0d"/>
-        <stop offset="100%" style="stop-color:#1a1a2e"/>
-      </linearGradient>
-      <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:#00d2ff"/>
-        <stop offset="50%" style="stop-color:#7b2ff7"/>
-        <stop offset="100%" style="stop-color:#ff0080"/>
-      </linearGradient>
-      <linearGradient id="sub" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:#aaa"/>
-        <stop offset="100%" style="stop-color:#666"/>
-      </linearGradient>
-    </defs>
-    <rect width="720" height="140" rx="16" fill="url(#bg)"/>
-    <rect x="0" y="130" width="720" height="4" rx="2" fill="url(#accent)" opacity="0.8"/>
-    <text x="360" y="62" text-anchor="middle" font-family="SF Pro Display, Inter, Segoe UI, sans-serif" font-size="48" font-weight="700" fill="url(#accent)" letter-spacing="4">
-      3D AGENT
-    </text>
-    <text x="360" y="100" text-anchor="middle" font-family="SF Pro Display, Inter, Segoe UI, sans-serif" font-size="16" font-weight="400" fill="url(#sub)" letter-spacing="2">
-      BROWSER-NATIVE 3D MODEL VIEWER &amp; VALIDATOR
-    </text>
-  </svg>
+---
+title: 3D Agent
+description: 3D Agent** is an open-source, browser-native 3D model viewer built on three.js. It renders glTF 2.0 and GLB** files directly in WebGL. No plugins, no server uploads, no installs. Create your own models and agents or just open the site, drop a file, and inspect your model instantly. 
+---
+
+<p align="center">
+    <img src="public/3DAgent.png" width="500" height="500">
 </p>
 
 <p align="center">
