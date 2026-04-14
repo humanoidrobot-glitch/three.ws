@@ -5,6 +5,7 @@ import { SimpleDropzone } from 'simple-dropzone';
 import { Validator } from './validator.js';
 import { Footer } from './components/footer';
 import { AvaturnAgent } from './avaturn-agent.js';
+import { resolveURI, isDecentralizedURI } from './ipfs.js';
 import queryString from 'query-string';
 
 window.THREE = THREE;
@@ -49,9 +50,17 @@ class App {
 			headerEl.style.display = 'none';
 		}
 
+		// Check for register page
+		if (hash.register !== undefined) {
+			this._showRegisterPage();
+			return;
+		}
+
 		// Load specified model or default CZ avatar
 		const model = options.model || '/avatars/cz.glb';
-		this.view(model, '', new Map());
+		// Resolve decentralized URIs (ipfs://, ar://) to gateway URLs
+		const resolvedModel = isDecentralizedURI(model) ? resolveURI(model) : model;
+		this.view(resolvedModel, '', new Map());
 	}
 
 	/**
@@ -140,6 +149,15 @@ class App {
 		}
 		window.alert(message);
 		console.error(error);
+	}
+
+	_showRegisterPage() {
+		this.dropEl.style.display = 'none';
+		import('./erc8004/register-ui.js').then(({ RegisterUI }) => {
+			new RegisterUI(this.viewerContainerEl, (result) => {
+				console.info('[ERC-8004] Agent registered:', result);
+			});
+		});
 	}
 
 	showSpinner() {

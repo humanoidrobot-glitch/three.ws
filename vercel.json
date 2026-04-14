@@ -24,6 +24,10 @@
             "dest": "/public/sitemap.xml"
         },
         {
+            "src": "/features",
+            "dest": "/features.html"
+        },
+        {
             "src": "/(.*)",
             "dest": "/public/$1"
         }

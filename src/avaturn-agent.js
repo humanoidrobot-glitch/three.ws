@@ -1,18 +1,45 @@
-import { AvaturnHead } from '@avaturn-live/web-sdk';
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 export class AvaturnAgent {
 	constructor(containerEl) {
 		this.container = containerEl;
-		this.avatar = null;
-		this.sessionId = null;
-		this.isConnected = false;
-		this.isLoading = false;
+		this.isReady = true;
+		this.isSpeaking = false;
+		this.isListening = false;
+		this.recognition = null;
+		this.synth = window.speechSynthesis;
+		this.messages = [];
 
 		this._buildUI();
+		this._initSpeechRecognition();
+	}
+
+	_initSpeechRecognition() {
+		if (!SpeechRecognition) return;
+
+		this.recognition = new SpeechRecognition();
+		this.recognition.continuous = false;
+		this.recognition.interimResults = false;
+		this.recognition.lang = 'en-US';
+
+		this.recognition.onresult = (event) => {
+			const text = event.results[0][0].transcript;
+			this._addMessage('user', text);
+			this._handleInput(text);
+		};
+
+		this.recognition.onend = () => {
+			this.isListening = false;
+			this.panel.querySelector('.avaturn-mic').classList.remove('active');
+		};
+
+		this.recognition.onerror = () => {
+			this.isListening = false;
+			this.panel.querySelector('.avaturn-mic').classList.remove('active');
+		};
 	}
 
 	_buildUI() {
-		// Avatar panel
 		this.panel = document.createElement('div');
 		this.panel.className = 'avaturn-panel';
 		this.panel.innerHTML = `
@@ -20,9 +47,8 @@ export class AvaturnAgent {
 				<span class="avaturn-title">3D Agent</span>
 				<button class="avaturn-close" aria-label="Close">&times;</button>
 			</div>
-			<div class="avaturn-video-wrap">
-				<div class="avaturn-video" id="avaturn-video"></div>
-				<div class="avaturn-status">Click to connect</div>
+			<div class="avaturn-messages" id="agent-messages">
+				<div class="avaturn-message agent">Hi! I'm your 3D Agent. Ask me about 3D models, controls, or drop a file to get started.</div>
 			</div>
 			<div class="avaturn-controls">
 				<input type="text" class="avaturn-input" placeholder="Ask the agent..." />
@@ -39,7 +65,6 @@ export class AvaturnAgent {
 		this.panel.style.display = 'none';
 		this.container.appendChild(this.panel);
 
-		// Toggle button
 		this.toggleBtn = document.createElement('button');
 		this.toggleBtn.className = 'avaturn-toggle';
 		this.toggleBtn.innerHTML = `
@@ -48,12 +73,11 @@ export class AvaturnAgent {
 		this.toggleBtn.title = 'Talk to 3D Agent';
 		this.container.appendChild(this.toggleBtn);
 
-		// Event listeners
 		this.toggleBtn.addEventListener('click', () => this._togglePanel());
 		this.panel.querySelector('.avaturn-close').addEventListener('click', () => this._togglePanel());
-		this.panel.querySelector('.avaturn-send').addEventListener('click', () => this._sendMessage());
+		this.panel.querySelector('.avaturn-send').addEventListener('click', () => this._send());
 		this.panel.querySelector('.avaturn-input').addEventListener('keydown', (e) => {
-			if (e.key === 'Enter') this._sendMessage();
+			if (e.key === 'Enter') this._send();
 		});
 		this.panel.querySelector('.avaturn-mic').addEventListener('click', () => this._toggleMic());
 	}
@@ -62,88 +86,152 @@ export class AvaturnAgent {
 		const visible = this.panel.style.display !== 'none';
 		this.panel.style.display = visible ? 'none' : 'flex';
 		this.toggleBtn.classList.toggle('active', !visible);
-
-		if (!visible && !this.isConnected && !this.isLoading) {
-			this._connect();
+		if (!visible) {
+			this.panel.querySelector('.avaturn-input').focus();
 		}
 	}
 
-	async _connect() {
-		this.isLoading = true;
-		this._setStatus('Connecting...');
-
-		try {
-			const res = await fetch('/api/avaturn-session', { method: 'POST' });
-			if (!res.ok) {
-				const err = await res.json();
-				throw new Error(err.error || 'Session creation failed');
-			}
-
-			const { token, sessionId } = await res.json();
-			this.sessionId = sessionId;
-
-			const videoEl = this.panel.querySelector('#avaturn-video');
-			this.avatar = new AvaturnHead(videoEl, {
-				sessionToken: token,
-				audioSource: false,
-				keepAlive: true,
-			});
-
-			this.avatar.on('init', () => {
-				this.isConnected = true;
-				this.isLoading = false;
-				this._setStatus('');
-				this.avatar.task('Hello! I\'m your 3D Agent. Ask me anything about 3D models.');
-			});
-
-			this.avatar.on('avatar_started_speaking', () => {
-				this.panel.querySelector('.avaturn-video-wrap').classList.add('speaking');
-			});
-
-			this.avatar.on('avatar_ended_speaking', () => {
-				this.panel.querySelector('.avaturn-video-wrap').classList.remove('speaking');
-			});
-
-			this.avatar.on('dispose', () => {
-				this.isConnected = false;
-				this._setStatus('Disconnected');
-			});
-
-			await this.avatar.init();
-		} catch (err) {
-			console.error('[3D Agent] Avaturn connection failed:', err);
-			this.isLoading = false;
-			this._setStatus('Connection failed. Check API key.');
-		}
-	}
-
-	_sendMessage() {
+	_send() {
 		const input = this.panel.querySelector('.avaturn-input');
 		const text = input.value.trim();
-		if (!text || !this.avatar || !this.isConnected) return;
-
-		this.avatar.task(text);
+		if (!text) return;
 		input.value = '';
+
+		this._addMessage('user', text);
+		this._handleInput(text);
+	}
+
+	_handleInput(text) {
+		const response = this._generateResponse(text);
+		this._addMessage('agent', response);
+		this._speak(response);
+	}
+
+	_generateResponse(input) {
+		const lower = input.toLowerCase();
+
+		// Viewer info from window.VIEWER if available
+		const viewer = window.VIEWER?.app?.viewer;
+
+		if (lower.match(/\b(hello|hi|hey|sup)\b/)) {
+			return 'Hey! Drop a 3D model into the viewer, or ask me about the controls.';
+		}
+
+		if (lower.match(/\b(how|what).*(upload|load|open|import)\b/)) {
+			return 'You can drag and drop any glTF or GLB file onto the viewer, or click the upload button at the bottom. The model will load instantly in your browser.';
+		}
+
+		if (lower.match(/\b(rotate|spin|orbit)\b/)) {
+			return 'Click and drag to orbit the camera around the model. You can enable auto-rotate in the Display controls panel on the right.';
+		}
+
+		if (lower.match(/\b(zoom)\b/)) {
+			return 'Use the scroll wheel to zoom in and out. On mobile, pinch to zoom.';
+		}
+
+		if (lower.match(/\b(pan|move)\b/)) {
+			return 'Right-click and drag to pan the camera. On mobile, use two fingers to pan. You can toggle screen-space panning in the Display panel.';
+		}
+
+		if (lower.match(/\b(wireframe)\b/)) {
+			return 'Toggle wireframe mode from the Display controls panel on the right. It shows the mesh topology of your model.';
+		}
+
+		if (lower.match(/\b(light|lighting|dark|bright)\b/)) {
+			return 'Open the Lighting folder in the controls panel. You can change the environment map, adjust exposure, toggle punctual lights, and modify ambient and direct light intensity and color.';
+		}
+
+		if (lower.match(/\b(animation|animate|play)\b/)) {
+			return 'If your model has animations, they\'ll appear in the Animation folder. You can adjust playback speed or use "playAll" to play all clips at once.';
+		}
+
+		if (lower.match(/\b(background|bg|color)\b/)) {
+			return 'You can change the background color in the Display controls using the bgColor picker. Or toggle "background" to use the environment map as the background.';
+		}
+
+		if (lower.match(/\b(format|gltf|glb|supported|file)\b/)) {
+			return 'This viewer supports glTF 2.0 (.gltf) and GLB (.glb) files. These are the standard formats for 3D on the web. You can convert other formats using tools like Blender.';
+		}
+
+		if (lower.match(/\b(skeleton|bones|rig)\b/)) {
+			return 'Enable the skeleton helper in the Display panel to visualize the bone structure of rigged models.';
+		}
+
+		if (lower.match(/\b(grid)\b/)) {
+			return 'Toggle the grid in the Display panel. It helps you understand the scale and orientation of your model.';
+		}
+
+		if (lower.match(/\b(performance|fps|stats)\b/)) {
+			return 'Open the Performance folder in the controls panel to see an FPS counter and rendering stats.';
+		}
+
+		if (lower.match(/\b(validation|error|warning|report)\b/)) {
+			if (viewer) {
+				return 'After loading a model, the validator runs automatically and shows any issues at the bottom of the screen. Click the warning bar to see the full report.';
+			}
+			return 'Load a model first, then the validator will check it automatically and display any warnings or errors.';
+		}
+
+		if (lower.match(/\b(what|who).*(you|this|3d agent)\b/)) {
+			return 'I\'m 3D Agent — your assistant for previewing and understanding 3D models. I can help you navigate controls, understand file formats, and troubleshoot issues.';
+		}
+
+		if (lower.match(/\b(help|commands|can you)\b/)) {
+			return 'I can help with: loading models, camera controls (rotate, zoom, pan), lighting setup, animations, wireframe/skeleton views, validation reports, and format questions. Just ask!';
+		}
+
+		return 'I can help with model viewing, controls, lighting, animations, and file formats. Try asking about a specific feature, or drop a glTF/GLB file to get started!';
+	}
+
+	_speak(text) {
+		if (!this.synth) return;
+		this.synth.cancel();
+
+		const utterance = new SpeechSynthesisUtterance(text);
+		utterance.rate = 1.0;
+		utterance.pitch = 1.0;
+		utterance.volume = 0.8;
+
+		utterance.onstart = () => {
+			this.isSpeaking = true;
+		};
+		utterance.onend = () => {
+			this.isSpeaking = false;
+		};
+
+		this.synth.speak(utterance);
 	}
 
 	_toggleMic() {
-		if (!this.avatar || !this.isConnected) return;
-		this.avatar.toggleLocalAudio();
-		this.panel.querySelector('.avaturn-mic').classList.toggle('active');
+		if (!this.recognition) {
+			this._addMessage('agent', 'Speech recognition is not supported in this browser. Try Chrome or Edge.');
+			return;
+		}
+
+		if (this.isListening) {
+			this.recognition.stop();
+			this.isListening = false;
+			this.panel.querySelector('.avaturn-mic').classList.remove('active');
+		} else {
+			this.recognition.start();
+			this.isListening = true;
+			this.panel.querySelector('.avaturn-mic').classList.add('active');
+		}
 	}
 
-	_setStatus(msg) {
-		const statusEl = this.panel.querySelector('.avaturn-status');
-		statusEl.textContent = msg;
-		statusEl.style.display = msg ? 'flex' : 'none';
+	_addMessage(role, text) {
+		this.messages.push({ role, text });
+		const messagesEl = this.panel.querySelector('#agent-messages');
+		const msgEl = document.createElement('div');
+		msgEl.className = `avaturn-message ${role}`;
+		msgEl.textContent = text;
+		messagesEl.appendChild(msgEl);
+		messagesEl.scrollTop = messagesEl.scrollHeight;
 	}
 
 	dispose() {
-		if (this.avatar) {
-			this.avatar.dispose();
-			this.avatar = null;
-		}
-		this.isConnected = false;
+		if (this.recognition) this.recognition.stop();
+		this.synth.cancel();
 		this.panel.remove();
 		this.toggleBtn.remove();
 	}

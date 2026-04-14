@@ -1,0 +1,72 @@
+/**
+ * ERC-8004 Identity Registry — minimal ABI.
+ *
+ * Only the functions needed for agent registration and lookup.
+ * Full spec: https://eips.ethereum.org/EIPS/eip-8004
+ */
+
+export const IDENTITY_REGISTRY_ABI = [
+	// --- Registration ---
+	'function register(string agentURI) external returns (uint256 agentId)',
+	'function register(string agentURI, tuple(string metadataKey, bytes metadataValue)[] metadata) external returns (uint256 agentId)',
+	'function register() external returns (uint256 agentId)',
+
+	// --- URI ---
+	'function setAgentURI(uint256 agentId, string newURI) external',
+	'function tokenURI(uint256 agentId) external view returns (string)',
+
+	// --- Wallet ---
+	'function setAgentWallet(uint256 agentId, address newWallet, uint256 deadline, bytes signature) external',
+	'function getAgentWallet(uint256 agentId) external view returns (address)',
+	'function unsetAgentWallet(uint256 agentId) external',
+
+	// --- Metadata ---
+	'function getMetadata(uint256 agentId, string metadataKey) external view returns (bytes)',
+	'function setMetadata(uint256 agentId, string metadataKey, bytes metadataValue) external',
+
+	// --- ERC-721 basics ---
+	'function ownerOf(uint256 tokenId) external view returns (address)',
+	'function balanceOf(address owner) external view returns (uint256)',
+	'function totalSupply() external view returns (uint256)',
+
+	// --- Events ---
+	'event Registered(uint256 indexed agentId, string agentURI, address indexed owner)',
+	'event URIUpdated(uint256 indexed agentId, string newURI, address indexed updatedBy)',
+	'event MetadataSet(uint256 indexed agentId, string indexed indexedMetadataKey, string metadataKey, bytes metadataValue)',
+	'event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)',
+];
+
+/**
+ * Known deployments — add chain-specific addresses here.
+ * Format follows agentRegistry spec: eip155:{chainId}:{address}
+ */
+export const REGISTRY_DEPLOYMENTS = {
+	// Base mainnet (chain 8453)
+	8453: {
+		identityRegistry: '',   // TODO: fill once deployed
+		reputationRegistry: '', // TODO: fill once deployed
+		validationRegistry: '', // TODO: fill once deployed
+	},
+	// Base Sepolia testnet (chain 84532)
+	84532: {
+		identityRegistry: '',   // TODO: fill once deployed
+		reputationRegistry: '',
+		validationRegistry: '',
+	},
+	// Ethereum mainnet (chain 1) — if deployed
+	1: {
+		identityRegistry: '',
+		reputationRegistry: '',
+		validationRegistry: '',
+	},
+};
+
+/**
+ * Build the agentRegistry string per spec.
+ * @param {number} chainId
+ * @param {string} registryAddress
+ * @returns {string}  e.g. "eip155:8453:0x742..."
+ */
+export function agentRegistryId(chainId, registryAddress) {
+	return `eip155:${chainId}:${registryAddress}`;
+}

@@ -1,7 +1,16 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+	build: {
+		rollupOptions: {
+			input: {
+				main: resolve(__dirname, 'index.html'),
+				features: resolve(__dirname, 'features.html'),
+			},
+		},
+	},
 	plugins: [
 		VitePWA({
 			registerType: 'autoUpdate',
