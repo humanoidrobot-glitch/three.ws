@@ -1,0 +1,27 @@
+{
+    "public": true,
+    "routes": [
+        {
+            "src": "/assets/(.*)",
+            "headers": { "cache-control": "max-age=604800, public" },
+            "dest": "/assets/$1"
+        },
+        {
+            "src": "/.well-known/(.*)",
+            "headers": { "cache-control": "max-age=86400, public" },
+            "dest": "/public/.well-known/$1"
+        },
+        {
+            "src": "/robots.txt",
+            "dest": "/public/robots.txt"
+        },
+        {
+            "src": "/sitemap.xml",
+            "dest": "/public/sitemap.xml"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/public/$1"
+        }
+    ]
+}
